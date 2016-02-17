@@ -112,7 +112,7 @@ public class BluetoothLeService extends Service {
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
-            Log.d("BLEService:", "Characteristic Changed");
+            Log.d("BLEService:", "method:onCharactersiticChanged");
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
         }
     };
@@ -307,11 +307,19 @@ public class BluetoothLeService extends Service {
             mBluetoothGatt.writeDescriptor(descriptor);
         } //We also want to automatically display the updated values for other characteristics,
         // so make sure to add specific notifications
+        /*
+            Possible Bug:
+            setting this button status characteristic notification causes a notification to fire
+            constantly, however the value in the Gatt Server is not changing
+         */
         else if (UUID_BUTTON_STATUS.equals(characteristic.getUuid())){
             BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
                     UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
             descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
             mBluetoothGatt.writeDescriptor(descriptor);
+        }
+        else{
+
         }
     }
 

@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Jared on 2/16/2016.
@@ -44,6 +46,27 @@ public class FileIO {
 
     }
 
+    public ArrayList<String> readFileIntoArray(String file_name) {
+        File f = null;
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            f = getFile(file_name);
+            BufferedReader buf = new BufferedReader(new FileReader(f));
+            String line = null;
+            StringBuilder stringBulder = new StringBuilder();
+
+            while ( (line = buf.readLine()) != null){
+                list.add(line);
+            }
+            buf.close();
+            return list;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
     public boolean writeFile(String file_name,boolean append,String content){
         File f = null;
         try {
@@ -51,6 +74,25 @@ public class FileIO {
             int contentLength = content.length();
             BufferedWriter buf = new BufferedWriter(new FileWriter(f,append));
             buf.write(content, 0, contentLength);
+            buf.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean writeArrayListToFile(String file_name,boolean append,ArrayList<String> list){
+        File f = null;
+        try {
+            f = getFile(file_name);
+            Iterator iter = list.iterator();
+            BufferedWriter buf = new BufferedWriter(new FileWriter(f, append));
+            while (iter.hasNext()) {
+                int contentLength =iter.next().toString().length();
+                buf.write(iter.next().toString(), 0, contentLength);
+                buf.newLine();
+            }
             buf.close();
             return true;
         } catch (IOException e) {
