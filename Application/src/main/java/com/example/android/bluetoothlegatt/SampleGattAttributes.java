@@ -25,6 +25,7 @@ public class SampleGattAttributes {
     private static HashMap<String, String> attributes = new HashMap();
     public static String HEART_RATE_MEASUREMENT = "00002a37-0000-1000-8000-00805f9b34fb";
     public static String CLIENT_CHARACTERISTIC_CONFIG = "00002902-0000-1000-8000-00805f9b34fb";
+    public static String BUTTON_STATUS = "f000ac01-0451-4000-b000-000000000000";
 
     static {
         // Define the UUIDs of the services that your bluetooth device exposes
@@ -35,10 +36,10 @@ public class SampleGattAttributes {
         attributes.put("0000ffe0-0000-1000-8000-00805f9b34fb", "Service 3");
         attributes.put("f000aa64-0451-4000-b000-000000000000", "Service 4");
         attributes.put("f000ccc0-0451-4000-b000-000000000000", "Service 5");
-        attributes.put("f000ac00-0451-4000-b000-000000000000", "Service 6");
+        attributes.put("f000ac00-0451-4000-b000-000000000000", "Button Service");
         attributes.put("f000ffc0-0451-4000-b000-000000000000", "Service 7");
         // Define the UUIDs of the characteristics for your bluetooth device
-
+        attributes.put(BUTTON_STATUS, "Button Status");
 
         attributes.put(HEART_RATE_MEASUREMENT, "Heart Rate Measurement");
         attributes.put("00002a29-0000-1000-8000-00805f9b34fb", "Manufacturer Name String");
