@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -176,6 +177,18 @@ public class DeviceScanActivity extends ListActivity {
         startActivity(intent);
     }
 
+    protected void autoConnect(BluetoothDevice device) {
+        if (device == null) return;
+        final Intent intent = new Intent(this, DeviceControlActivity.class);
+        intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_NAME, device.getName());
+        intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_ADDRESS, device.getAddress());
+        if (mScanning) {
+            mBluetoothAdapter.stopLeScan(mLeScanCallback);
+            mScanning = false;
+        }
+        startActivity(intent);
+    }
+
     private void scanLeDevice(final boolean enable) {
         if (enable) {
             // Stops scanning after a pre-defined scan period.
@@ -274,6 +287,12 @@ public class DeviceScanActivity extends ListActivity {
                 public void run() {
                     mLeDeviceListAdapter.addDevice(device);
                     mLeDeviceListAdapter.notifyDataSetChanged();
+                    FileIO fileIO = new FileIO();
+                    ArrayList<String> rememberedAddresses = fileIO.readFileIntoArray(getFilesDir() + "rememberedAddress.txt");
+                    if (rememberedAddresses.contains(device.getAddress())){
+                        Log.d("AutoConnect", "Connecting");
+                        autoConnect(device);
+                    }
                 }
             });
         }

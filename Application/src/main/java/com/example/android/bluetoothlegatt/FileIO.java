@@ -89,8 +89,8 @@ public class FileIO {
             Iterator iter = list.iterator();
             BufferedWriter buf = new BufferedWriter(new FileWriter(f, append));
             while (iter.hasNext()) {
-                int contentLength =iter.next().toString().length();
-                buf.write(iter.next().toString(), 0, contentLength);
+                String content =iter.next().toString();
+                buf.write(content, 0, content.length());
                 buf.newLine();
             }
             buf.close();
