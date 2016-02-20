@@ -32,6 +32,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -78,6 +79,12 @@ public class BluetoothLeService extends Service {
                 intentAction = ACTION_GATT_CONNECTED;
                 mConnectionState = STATE_CONNECTED;
                 broadcastUpdate(intentAction);
+                ArrayList<String> rememberedAddresses = new ArrayList<>();
+                Log.d("Jerry Device Address",mBluetoothGatt.getDevice().getAddress());
+                rememberedAddresses.add(mBluetoothGatt.getDevice().getAddress());
+                Log.d("Jerry Remembered Add",rememberedAddresses.get(0));
+                FileIO fileIO = new FileIO();
+                fileIO.writeArrayListToFile(getFilesDir()+ "rememberedAddress.txt",false,rememberedAddresses);
                 Log.i(TAG, "Connected to GATT server.");
                 // Attempts to discover services after successful connection.
                 Log.i(TAG, "Attempting to start service discovery:" +

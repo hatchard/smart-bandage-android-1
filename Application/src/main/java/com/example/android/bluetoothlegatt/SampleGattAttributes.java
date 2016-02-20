@@ -38,6 +38,18 @@ public class SampleGattAttributes {
         attributes.put("f000ccc0-0451-4000-b000-000000000000", "Service 5");
         attributes.put("f000ac00-0451-4000-b000-000000000000", "Button Service");
         attributes.put("f000ffc0-0451-4000-b000-000000000000", "Service 7");
+
+        // Added the Smart Bandage Characteristic UUIDs
+        attributes.put("0000f0f0-0000-1000-8000-00805f9b34fb", "Smart Bandage Service");
+        attributes.put("0000f0f1-0000-1000-8000-00805f9b34fb", "Temperature Value");
+        attributes.put("0000f0f2-0000-1000-8000-00805f9b34fb", "Humidity Value");
+        attributes.put("0000f0f3-0000-1000-8000-00805f9b34fb", "Bandage ID");
+        attributes.put("0000f0f4-0000-1000-8000-00805f9b34fb", "Bandage State");
+        attributes.put("0000f0f5-0000-1000-8000-00805f9b34fb", "Battery Charge");
+        attributes.put("0000f0f6-0000-1000-8000-00805f9b34fb", "External Power");
+        attributes.put("0000f0f7-0000-1000-8000-00805f9b34fb", "Moisture Map");
+        attributes.put("0000f0f8-0000-1000-8000-00805f9b34fb", "System Time");
+
         // Define the UUIDs of the characteristics for your bluetooth device
         attributes.put(BUTTON_STATUS, "Button Status");
 
